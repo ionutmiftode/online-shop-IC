@@ -25,6 +25,7 @@ function renderProduct(product) {
 
 	var addToBag = document.createElement("button");
 	addToBag.setAttribute("class", "add-to-bag");
+	addToBag.setAttribute("data-addtobag-id", product.id);
 	addToBag.innerHTML = "Adauga in cos";
 
 	newArticle.appendChild(divName);
