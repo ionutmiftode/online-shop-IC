@@ -1,34 +1,8 @@
 var compareContainer = document.getElementById("compare-container");
-
-/* Add to Bag Click increment */
-var bagCounter = 0;
 var sectionProducts = document.getElementById("section-top-products");
-var circle = document.getElementById("circle-counter");
 
 // Add to bag (number of products and total price)
-var addToBagClickHandler = function(e) {
-	if(e.target.type == 'submit') {
-		var productId = e.target.dataset.addtobagId;
-		var product = products.find(function(product) {
-			return productId == product.id;
-		});
-
-		bag.products.push(product);
-		bag.updateTotal();
-		bagCounter++;
-		circle.textContent = bagCounter;
-	}
-}
-sectionProducts.addEventListener('click', addToBagClickHandler);
-
-// Show/hide cart popup
-document.addEventListener('click', function(e) {
-	if(e.target.id == 'svg-cart' || e.target.id == 'svg-path') {
-		bag.popup.classList.remove('hidden');
-	} else {
-		bag.popup.classList.add('hidden');
-	}
-});
+sectionProducts.addEventListener('click', bag.add);
 
 function isPopular(product) {
 	return product.popular == true;

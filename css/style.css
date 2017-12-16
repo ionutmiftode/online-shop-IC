@@ -40,7 +40,9 @@ a {
 .yellow {
 	background-color: yellow;
 }
-
+.inline-block {
+	display: inline-block;
+}
 .hidden {
 	display: none;
 }
@@ -294,8 +296,8 @@ footer {
 	width: 150px;
 }
 #bag-total-text,
-#total-price {
-	display: inline-block;
+#total-price,
+#currency {
 	padding-bottom: 20px;
 	padding-top: 20px;
 	font-weight: 700;
@@ -303,8 +305,14 @@ footer {
 #bag-total-text {
 	margin-left: 20px;
 }
-#total-price {
+#total-price,
+#currency {
 	float: right;
+}
+#total-price {
+	margin-right: 5px;
+}
+#currency {
 	margin-right: 20px;
 }
 .top-arrow {
