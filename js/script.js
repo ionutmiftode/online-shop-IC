@@ -1,17 +1,8 @@
 var compareContainer = document.getElementById("compare-container");
-
-/* Add to Bag Click increment */
-var bagCounter = 0;
 var sectionProducts = document.getElementById("section-top-products");
-var circle = document.getElementById("circle-counter");
 
-var addToBagClickHandler = function(e) {
-	if(e.target.type == 'submit') {
-		bagCounter++;
-		circle.textContent = bagCounter;
-	}
-}
-sectionProducts.addEventListener('click', addToBagClickHandler);
+// Add to bag (number of products and total price)
+sectionProducts.addEventListener('click', bag.add);
 
 function isPopular(product) {
 	return product.popular == true;
@@ -21,6 +12,7 @@ var popularProducts = products.filter(isPopular);
 /* Add/remove products to/from Compare Container */
 sectionProducts.addEventListener("change", function(e) {
 	var checkbox = e.target.dataset.checkboxId;
+
 	if(e.target.checked) {
 		if(compareContainer.classList.contains("hidden")) {
 			compareContainer.classList.remove("hidden");

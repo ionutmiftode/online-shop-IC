@@ -18,17 +18,8 @@ uniqueBrands.forEach(function(product) {
 	productBrands.appendChild(newLi);
 });
 
-/* Add to Bag Click increment */
-var bagCounter = 0;
-var circle = document.getElementById("circle-counter");
-
-var addToBagClickHandler = function(e) {
-	if(e.target.type == 'submit') {
-		bagCounter++;
-		circle.textContent = bagCounter;
-	}
-}
-sectionProducts.addEventListener('click', addToBagClickHandler);
+// Add to bag (number of products and total price)
+sectionProducts.addEventListener('click', bag.add);
 
 /* Filter products */
 productsFilter.addEventListener("change", function(e) {
