@@ -121,7 +121,7 @@ main .main-content {
 	height: 300px;
 	margin: 0;
 	left: 0;
-	transition: transform 0s;
+	transition: transform 1s;
 }
 .slide {
 	display: inline-block;

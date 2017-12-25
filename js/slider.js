@@ -1,51 +1,45 @@
 var sliders = document.getElementById("slider");
 var dots = document.getElementById("slider-dots");
+var activeSlideDot = dots.getElementsByClassName("active-slide-dot");
+var maxSlideId = 2;
 
 var slider = {
 	activeSlideId: 0,
 	animate: function() {
 		var self = this;
-		this.interval = setInterval(function () {		
-			if(self.activeSlideId < sliders.childElementCount) {
-				// delete slider class
-				sliders.className = '';
+		this.interval = setInterval(function () {
+				// get nextSlideId				
+				var nextSlideId = self.activeSlideId === maxSlideId ? 0 : self.activeSlideId +1;
 
-				// remove/add active class for dots
-				for (var i = dots.children.length - 1; i >= 0; i--) {
-					dots.children[i].classList.remove("active-slide-dot");
-					if(dots.children[i].dataset.slideId == self.activeSlideId) {
-						dots.children[i].classList.add("active-slide-dot");
-					}
-				}
+				// show next slide
+				sliders.className = "slide-transition-"+nextSlideId;
 
-				//add current slide id class
-				sliders.className = "slide-transition-"+self.activeSlideId;
+				// remove active dot class
+				activeSlideDot[0].classList.remove("active-slide-dot");
 
-
-				//update self.activeSlideId
-				self.activeSlideId++;
-			}
-			if(self.activeSlideId == sliders.childElementCount) {
-				self.activeSlideId = 0;
-			}
-			
-		}, 3000);	
+				// add dot active class
+				var nextSlideDot = dots.querySelector("[data-slide-id='"+nextSlideId+"']");
+				nextSlideDot.classList.add("active-slide-dot");
+				
+				// update activeSlideId
+				self.activeSlideId = nextSlideId;
+		}, 5000);	
 	},
 	onClick: function(e) {
 		if(e.target.classList.value == 'slider-dot') {
-			//clearInterval(this.interval);
-			//sliders.className = '';
-			for (var i = dots.children.length - 1; i >= 0; i--) {
-				dots.children[i].classList.remove("active-slide-dot");
-			}
+			// remove active dot class
+			activeSlideDot[0].classList.remove("active-slide-dot");
+
+			// add active class on clicked dot
 			e.target.classList.add("active-slide-dot");
-			this.activeSlideId = e.target.dataset.slideId;
+
+			// update activeSlideId and show active slide
+			this.activeSlideId = parseInt(e.target.dataset.slideId);
 			sliders.classList.replace(sliders.className, "slide-transition-"+this.activeSlideId);
-			//this.animate();
 		}
 	}
 }
 slider.animate();
-document.addEventListener('click', function(e){
+dots.addEventListener('click', function(e){
 	slider.onClick(e);
 });
