@@ -1,5 +1,6 @@
 var compareContainer = document.getElementById("compare-container");
 var sectionProducts = document.getElementById("section-top-products");
+var randomNumber = Math.random();
 
 // Add to bag (number of products and total price)
 sectionProducts.addEventListener('click', bag.add);
@@ -7,7 +8,17 @@ sectionProducts.addEventListener('click', bag.add);
 function isPopular(product) {
 	return product.popular == true;
 }
-var popularProducts = products.filter(isPopular);
+var popularProducts = new Promise(function(resolve, reject) {
+	if(randomNumber > 0.5) {
+		setTimeout(function() {
+			resolve(products.filter(isPopular));
+		}, 4000);
+	} else {
+		setTimeout(function() {
+			reject('No products in stoc. Please try again later!');
+		}, 2000);		
+	}
+});
 
 /* Add/remove products to/from Compare Container */
 sectionProducts.addEventListener("change", function(e) {
@@ -39,9 +50,17 @@ sectionProducts.addEventListener("change", function(e) {
 });
 
 function init() {
-	for (var i = 0; i < popularProducts.length; i++) {
-		renderProduct(popularProducts[i]);	
-	}
+	popularProducts
+		.then(function(result) {
+			sectionProducts.innerHTML = '';
+			for (var i = 0; i < result.length; i++) {
+				renderProduct(result[i]);	
+			}
+		})
+		.catch(function(error) {
+			sectionProducts.innerHTML = '';
+			alert(error);
+		});	
 }
 
 document.addEventListener("DOMContentLoaded", function() {
