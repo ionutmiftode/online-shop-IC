@@ -8,16 +8,14 @@ sectionProducts.addEventListener('click', bag.add);
 function isPopular(product) {
 	return product.popular == true;
 }
-var popularProducts = new Promise(function(resolve, reject) {
-	if(randomNumber > 0.5) {
-		setTimeout(function() {
+var getPopularProducts = new Promise(function(resolve, reject) {
+	setTimeout(function() {
+		if(randomNumber > 0.5) {
 			resolve(products.filter(isPopular));
-		}, 4000);
-	} else {
-		setTimeout(function() {
-			reject('No products in stoc. Please try again later!');
-		}, 2000);		
-	}
+		} else {			
+			reject('No products in stoc. Please try again later!');					
+		}
+	}, 3000);
 });
 
 /* Add/remove products to/from Compare Container */
@@ -50,7 +48,7 @@ sectionProducts.addEventListener("change", function(e) {
 });
 
 function init() {
-	popularProducts
+	getPopularProducts
 		.then(function(result) {
 			sectionProducts.innerHTML = '';
 			for (var i = 0; i < result.length; i++) {
