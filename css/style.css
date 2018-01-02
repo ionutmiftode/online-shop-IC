@@ -193,9 +193,15 @@ main .main-content {
 }*/
 
 #section-top-products {
+	position: relative;
 	text-align: center;
 	height: 300px;
 	margin: 20px;
+}
+#section-top-products img {
+	position: absolute;
+	top: 35%;
+	width: 60px;
 }
 #all-products {
 	text-align: center;
