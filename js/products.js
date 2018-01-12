@@ -1,4 +1,4 @@
-var products = [
+/*var products = [
 	{ id: 0, brand: "Samsung", name: "Samsung Galaxy S8", price: 3399, category: "phone", popular:true },
 	{ id: 1, brand: "Samsung", name: "Samsung Galaxy S7", price: 1999, category: "phone" },
 	{ id: 2, brand: "Samsung", name: "Samsung Galaxy A5", price: 1299, category: "phone" },
@@ -14,4 +14,4 @@ var products = [
 	{ id: 12, brand: "Xiaomi", name: "Xiaomi Redmi Note 4X", price: 849, category: "phone" },
 	{ id: 13, brand: "Xiaomi", name: "Xiaomi Mi Mix", price: 2859, category: "phone" },
 	{ id: 14, brand: "Xiaomi", name: "Xiaomi Mi 5s Plus", price: 1696, category: "phone" },
-];
+];*/

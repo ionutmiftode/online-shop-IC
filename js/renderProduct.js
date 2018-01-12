@@ -15,8 +15,8 @@ function renderProduct(product) {
 	divBrand.setAttribute("id", "product-brand-"+product.id);
 	divBrand.innerHTML = "Brand: "+product.brand;	
 
-    var isHomePage = window.location.href.includes('index.html');
-    if(isHomePage) {
+    //var isHomePage = window.location.href.includes('/');
+    if(window.location.href == "http://localhost:3000/") {
     	var checkBox = document.createElement("input");
 		checkBox.setAttribute("data-checkbox-id", product.id);
 	    checkBox.type = "checkbox";
@@ -32,7 +32,7 @@ function renderProduct(product) {
 	newArticle.appendChild(divPrice);
 	newArticle.appendChild(divBrand);
 	newArticle.appendChild(addToBag);
-	if(isHomePage) {
+	if(window.location.href == "http://localhost:3000/") {
 		newArticle.appendChild(checkBox);
 	}
 	sectionProducts.appendChild(newArticle);
