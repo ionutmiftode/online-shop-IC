@@ -1,5 +1,7 @@
+
 var compareContainer = document.getElementById("compare-container");
 var sectionProducts = document.getElementById("section-top-products");
+var products;
 //var randomNumber = Math.random();
 
 // Add to bag (number of products and total price)
@@ -22,28 +24,19 @@ function isPopular(product) {
 sectionProducts.addEventListener("change", function(e) {
 	var checkbox = e.target.dataset.checkboxId;
 	if(e.target.checked) {	
+		var popularProducts = products.filter(isPopular).find(function(product) {
+			return checkbox == product.id;
+		});
+		var containerProduct = document.createElement("div");
 
-		axios.get('/products')
-			.then(function (response) {
-				var products = response.data;
-				var popularProducts = products.filter(isPopular).find(function(product) {
-					return checkbox == product.id;
-				});
-				var containerProduct = document.createElement("div");
+		if(compareContainer.classList.contains("hidden")) {
+			compareContainer.classList.remove("hidden");
+		}				
 
-				if(compareContainer.classList.contains("hidden")) {
-					compareContainer.classList.remove("hidden");
-				}				
-
-				containerProduct.setAttribute("data-product-id", popularProducts.id);
-				containerProduct.classList.add('compare-product')
-				containerProduct.innerText = popularProducts.name;
-				compareContainer.appendChild(containerProduct);
-				
-			})
-			.catch(function (error) {
-			    console.log(error);
-			});
+		containerProduct.setAttribute("data-product-id", popularProducts.id);
+		containerProduct.classList.add('compare-product')
+		containerProduct.innerText = popularProducts.name;
+		compareContainer.appendChild(containerProduct);
 
 		/*var product = products.filter(isPopular).find(function(product) {
 			return checkbox == product.id;
@@ -78,24 +71,23 @@ function init() {
 			alert(error);
 		});*/
 	setTimeout(function() {
-		axios.get('/products')
-			.then(function (response) {
-				var products = response.data;
-
-				var popularProducts = products.filter(isPopular);
-				
-				sectionProducts.innerHTML = '';
-				for (var i = 0; i < popularProducts.length; i++) {
-					renderProduct(popularProducts[i]);	
-				}				
-			})
-			.catch(function (error) {
-			    alert("No products found");
-			});
+		var popularProducts = products.filter(isPopular);
+		
+		sectionProducts.innerHTML = '';
+		for (var i = 0; i < popularProducts.length; i++) {
+			renderProduct(popularProducts[i], true);	
+		}				
 	}, 3000);
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-   init();
+	axios.get('/products')
+		.then(function (response) {
+			products = response.data;
+			init();
+		})
+		.catch(function (error) {
+		    alert(error);
+		});
 });
 
