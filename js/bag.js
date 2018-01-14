@@ -22,14 +22,22 @@ var bag = {
 	add: function(e) {
 		if(e.target.classList.value == 'add-to-bag') {
 			var productId = e.target.dataset.addtobagId;
-			var product = products.find(function(product) {
-				return productId == product.id;
-			});
 
-			bag.products.push(product);
-			bag.updateTotal();
-			bagCounter++;
-			circle.textContent = bagCounter;
+			axios.get('/products')
+				.then(function (response) {
+					var products = response.data;
+					var product = products.find(function(product) {
+						return productId == product.id;
+					});
+
+					bag.products.push(product);
+					bag.updateTotal();
+					bagCounter++;
+					circle.textContent = bagCounter;
+				})
+				.catch(function (error) {
+				    console.log(error);
+				});
 		}
 	}
 }		
