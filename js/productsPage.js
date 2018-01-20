@@ -1,6 +1,7 @@
 var productBrands = document.getElementById("product-brands");
 var sectionProducts = document.getElementById("all-products");
 var productsFilter = document.getElementById("products-filter");
+var totalPrice = 0;
 var products;
 
 function getUniqueBrands() {
@@ -68,15 +69,28 @@ function init() {
 
 	sortedByNameProducts.forEach(function(product) {
 		renderProduct(product, false);
-	});	
+	});
+
+	bagCounter = bagProducts.length;
+	circle.textContent = bagCounter;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 	axios.get('/products')
 		.then(function (response) {
 			products = response.data;
+
+			for (var i = bagProducts.length - 1; i >= 0; i--) {
+				var product = products.find(function(product) {
+					return bagProducts[i] == product.id;
+				});
+				totalPrice += product.price;		
+			}
+			price.innerHTML = totalPrice;
+
 			getUniqueBrands();
-			init();			
+			
+			init();
 		})
 		.catch(function (error) {
 		    console.log(error);
