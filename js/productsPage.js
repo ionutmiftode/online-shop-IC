@@ -52,8 +52,9 @@ productsFilter.addEventListener("change", function(e) {
 });
 
 function init() {
+	var clonedProducts = products.slice();
 	// products sort by name
-	var sortedByNameProducts = products.sort(function(a, b) {
+	var sortedByNameProducts = clonedProducts.sort(function(a, b) {
 	  	var nameA = a.name.toUpperCase(); // ignore upper and lowercase
 	  	var nameB = b.name.toUpperCase(); // ignore upper and lowercase
 	  	if (nameA < nameB) {
@@ -80,17 +81,24 @@ document.addEventListener("DOMContentLoaded", function() {
 		.then(function (response) {
 			products = response.data;
 
-			for (var i = bagProducts.length - 1; i >= 0; i--) {
-				var product = products.find(function(product) {
-					return bagProducts[i] == product.id;
-				});
-				totalPrice += product.price;		
-			}
-			price.innerHTML = totalPrice;
-
 			getUniqueBrands();
 			
 			init();
+
+			var j = bagProducts.length - 1;
+
+			for (var i = products.length - 1; i >= 0;) {
+				if (products[i].id == bagProducts[j]) {
+					i = bagProducts[j];
+					j--;
+
+					totalPrice += products[i].price;					
+				} else {
+					i--;
+				}
+			}
+			price.innerHTML = totalPrice;
+			
 		})
 		.catch(function (error) {
 		    console.log(error);

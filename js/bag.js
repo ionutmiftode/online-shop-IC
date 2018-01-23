@@ -32,6 +32,10 @@ var bag = {
 			var productId = e.target.dataset.addtobagId;
 
 			bagProducts.push(productId);
+			bagProducts.sort(function(a, b) {
+				return a - b;
+			});
+
 			localStorage.setItem('bagProducts', JSON.stringify(bagProducts));
 
 			axios.get('/products')

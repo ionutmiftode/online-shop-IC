@@ -90,14 +90,20 @@ document.addEventListener("DOMContentLoaded", function() {
 			bagCounter = bagProducts.length;
 			circle.textContent = bagCounter;
 
-			for (var i = bagProducts.length - 1; i >= 0; i--) {
-				var product = products.find(function(product) {
-					return bagProducts[i] == product.id;
-				});
-				totalPrice += product.price;		
+			var j = bagProducts.length - 1;
+
+			for (var i = products.length - 1; i >= 0;) {
+				if (products[i].id == bagProducts[j]) {
+					i = bagProducts[j];
+					j--;
+
+					totalPrice += products[i].price;					
+				} else {
+					i--;
+				}
 			}
 			price.innerHTML = totalPrice;
-			
+
 			init();
 		})
 		.catch(function (error) {
