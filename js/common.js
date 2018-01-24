@@ -1,2 +1,2 @@
 var circle = document.getElementById("circle-counter");
-var bagCounter = 0;
+var bagCounter;

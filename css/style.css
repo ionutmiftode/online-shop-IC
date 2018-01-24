@@ -330,11 +330,12 @@ footer {
     margin-bottom: 20px;
 }
 #bag-popup {
+	border: 2px solid #F48024;
 	border-radius: 8%;
 	position: absolute;
 	right: -25px;
 	background-color: #fff;
-	height: 70px;
+	height: 90px;
 	width: 150px;
 }
 #bag-total-text,
@@ -361,11 +362,27 @@ footer {
 	display: block;  
 	position: absolute;
 	left: 120px;
-	bottom: 70px;
+	bottom: 90px;
 	width: 0;
 	height: 0;
-	border-bottom: 10px solid #fff;
+	border-bottom: 10px solid #F48024;
 	border-top: 10px solid transparent;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
+}
+#main-wrapper-bag {
+	margin: 100px 200px;
+	padding: 100px 20px;
+	text-align: center;
+}
+#main-wrapper-bag .no-products {
+	font-size: 22px;
+	font-weight: 900;
+}
+#bag-detail {
+	text-align: center;
+}
+#bag-detail a {
+	color: #F48024;
+	font-weight: 900;
 }

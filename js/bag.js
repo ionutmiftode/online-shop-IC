@@ -1,3 +1,10 @@
+var price = document.getElementById("total-price");
+var bagProducts = [];
+
+if (localStorage.getItem("bagProducts") !== null) {
+	bagProducts = JSON.parse(localStorage.getItem("bagProducts"));
+}
+
 var bag = {
 	popup: document.getElementById("bag-popup"),
 	products: [],
@@ -14,14 +21,22 @@ var bag = {
 		}
 	}),
 	updateTotal: function() {
-		var price = document.getElementById("total-price");
+		var totalPrice = parseInt(price.innerText);
 		var lastProduct = this.products.length - 1;
-		this.total += this.products[lastProduct].price;
-		price.innerHTML = this.total;
+		totalPrice += this.products[lastProduct].price;
+		this.total = totalPrice;
+		price.innerHTML = totalPrice;
 	},
 	add: function(e) {
 		if(e.target.classList.value == 'add-to-bag') {
 			var productId = e.target.dataset.addtobagId;
+
+			bagProducts.push(productId);
+			bagProducts.sort(function(a, b) {
+				return a - b;
+			});
+
+			localStorage.setItem('bagProducts', JSON.stringify(bagProducts));
 
 			axios.get('/products')
 				.then(function (response) {
@@ -32,8 +47,9 @@ var bag = {
 
 					bag.products.push(product);
 					bag.updateTotal();
-					bagCounter++;
+					bagCounter = bagProducts.length;
 					circle.textContent = bagCounter;
+					bagCounter++;
 				})
 				.catch(function (error) {
 				    console.log(error);

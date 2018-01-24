@@ -1,6 +1,8 @@
 
 var compareContainer = document.getElementById("compare-container");
 var sectionProducts = document.getElementById("section-top-products");
+var price = document.getElementById("total-price");
+var totalPrice = 0;
 var products;
 //var randomNumber = Math.random();
 
@@ -84,6 +86,24 @@ document.addEventListener("DOMContentLoaded", function() {
 	axios.get('/products')
 		.then(function (response) {
 			products = response.data;
+
+			bagCounter = bagProducts.length;
+			circle.textContent = bagCounter;
+
+			var j = bagProducts.length - 1;
+
+			for (var i = products.length - 1; i >= 0;) {
+				if (products[i].id == bagProducts[j]) {
+					i = bagProducts[j];
+					j--;
+
+					totalPrice += products[i].price;					
+				} else {
+					i--;
+				}
+			}
+			price.innerHTML = totalPrice;
+
 			init();
 		})
 		.catch(function (error) {
